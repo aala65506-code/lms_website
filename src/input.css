@@ -1,0 +1,122 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+* {
+  box-sizing: border-box;
+}
+
+
+body{
+    font-family: cairo;
+
+     overflow-x: hidden;
+}
+.btn{
+    
+    color: aliceblue;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn:hover{
+background-color: rgb(140, 89, 187) !important;
+}
+.img-ra{
+    border-radius: 20%;
+}
+
+
+
+.img-translate{
+    animation: translate-img 1s ease-in-out infinite;
+}
+
+ @keyframes translate-img {
+    0%,
+    100% {
+      transform: translatex(-5px);
+    }
+    50% {
+      transform: translatex(5px);
+    }
+  }
+
+  
+  /* حاوية الأسهم تحت السلايدر */
+  .swiper-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  /* شكل الأزرار */
+  .swiper-button-next, .swiper-button-prev {
+    position: relative !important;
+    inset: unset !important; /* يلغي الموقع الافتراضي */
+    width: 90px;   /* حجم الدائرة */
+    height: 90px;
+    background-color: #7c3aed; /* لون الدائرة نهدي غامق */
+    color: #d8b4fe; /* لون السهم نهدي فاتح */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px; /* حجم السهم */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+
+  /* توهج عند المرور أو الضغط */
+  .swiper-button-next:hover, .swiper-button-prev:hover {
+    box-shadow: 0 0 15px #d8b4fe;
+    transform: scale(1.1);
+  }
+
+  /* إزالة الأسهم الافتراضية */
+  .swiper-button-next::after, .swiper-button-prev::after {
+    font-size: 22px;
+    color: #d8b4fe; /* نفس لون السهم */
+    font-weight: bold;
+  }
+
+  
+  .animate-marquee {
+    display: inline-block;
+    padding-left: 100%; /* تبدأ من خارج الشاشة */
+    animation: marquee 20s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+@layer utilities {
+  /* توهج ثابت للوضع العادي (Light Mode) */
+  .glow-text-fixed {
+    color: #6b21a8; /* لون نهدي غامق يناسب اللايت */
+    text-shadow: 
+      0 0 8px rgba(168, 85, 247, 0.8),
+      0 0 16px rgba(168, 85, 247, 0.6),
+      0 0 32px rgba(168, 85, 247, 0.4);
+  }
+
+  /* توهج ثابت للوضع الداكن (Dark Mode) */
+  .dark .glow-text-fixed {
+    color: #e9d5ff; /* نهدي فاتح */
+    text-shadow: 
+      0 0 10px rgba(236, 72, 153, 0.8),
+      0 0 20px rgba(168, 85, 247, 0.7),
+      0 0 40px rgba(168, 85, 247, 0.5);
+  }
+}
+
+

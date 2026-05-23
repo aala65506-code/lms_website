@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    if (localStorage.getItem('color-theme') === 'dark' ||
+      (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./dist/output.css">
+  <link rel="stylesheet" href="./src/input.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <title>lms</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+</head>
+
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-[Cairo]">
+
+  <!-- ✅ Navbar ثابت -->
+  <nav class="bg-white border-gray-200 dark:bg-gray-900 drop-shadow-md fixed top-0 left-0 w-full z-50">
+    <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+
+        <span class="self-center text-2xl font-bold dark:text-purple-400">بكالوريا بلس</span>
+      </a>
+
+      <!-- Navbar Links -->
+      <div class="hidden md:flex items-center space-x-4 rtl:space-x-reverse">
+        <ul class="flex space-x-4 rtl:space-x-reverse font-medium">
+          <li><a href="#" class="hover:text-purple-700 dark:text-purple-400">الرئيسية</a></li>
+          <li><a href="#" class="hover:text-purple-700 dark:text-purple-400">خدماتنا</a></li>
+          <li><a href="#" class="hover:text-purple-700 dark:text-purple-400">كورساتنا</a></li>
+          <li><a href="#" class="hover:text-purple-700 dark:text-purple-400">من نحن</a></li>
+          <li><a href="#" class="hover:text-purple-700 dark:text-purple-400">تواصل معنا</a></li>
+        </ul>
+
+        <!-- Language Dropdown -->
+        <div class="relative">
+          <button id="lang-btn"
+            class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-purple-400 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
+            English (US)
+          </button>
+          <div id="lang-menu"
+            class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-lg shadow-md z-50">
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">English (US)</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Deutsch</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Italiano</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">中文 (繁體)</a>
+          </div>
+        </div>
+
+        <!-- Toggle Theme -->
+        <button id="theme-toggle" type="button"
+          class="text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-sm p-2">
+          🌞/🌙
+        </button>
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden flex items-center space-x-2 rtl:space-x-reverse">
+        <button id="mobile-menu-btn"
+          class="text-gray-600 dark:text-gray-300 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+          ☰
+        </button>
+        <button id="theme-toggle-mobile"
+          class="text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg p-2">🌞/🌙</button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800">
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">الرئيسية</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">خدماتنا</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">كورساتنا</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">من نحن</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">تواصل معنا</a>
+      <div class="border-t border-gray-200 dark:border-gray-700"></div>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">English (US)</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">Deutsch</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">Italiano</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">中文 (繁體)</a>
+    </div>
+  </nav>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+
+    document.getElementById('lang-btn').addEventListener('click', function () {
+      document.getElementById('lang-menu').classList.toggle('hidden');
+    });
+
+    function toggleTheme() {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('color-theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('color-theme', 'dark');
+      }
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    document.getElementById('theme-toggle-mobile').addEventListener('click', toggleTheme);
+  </script>
+
+
+  <!-- الحاوية الرئيسية -->
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    <!-- ترويسة الكورس -->
+    <section class="bg-nahdi-50 dark:bg-[#071232] rounded-lg p-6 md:p-8 mb-6 shadow-soft">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div class="flex-1">
+          <nav class="text-sm text-gray-500 dark:text-gray-400 mb-3"> الرئيسية / المقالات / كيف تستفيد من الذكاء
+            الاصطناعي في تنظيم وقتك الدراسي <span class="text-nahdi-700 dark:text-nahdi-50 font-semibold"></span></nav>
+          <h1 class="text-2xl md:text-3xl font-extrabold text-nahdi-700 dark:text-nahdi-50 glow-text-fixed">
+            كيف تستفيد من الذكاء الاصطناعي في تنظيم وقتك الدراسي
+          </h1>
+          <div class="mt-3 flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-300 items-center">
+            <div class="flex items-center gap-2">
+              <img src="dist/image/per2.jpg" alt="المدرّس" class="w-7 h-7 rounded-full mt-5" />
+              <span>المدربة : <span class="font-medium">احمد الحسن </span></span>
+            </div>
+            <div>
+              <i class="fa-regular fa-calendar text-purple-600"></i>
+              فبراير 2023
+            </div>
+            <div>
+              <i class="fa-solid fa-book-open  text-purple-600"></i>
+              15 درس
+            </div>
+            <div>
+              <i class="fa-solid fa-globe  text-purple-600"></i>
+              الإنجليزية
+            </div>
+          </div>
+        </div>
+
+        <!-- معاينة الصورة بزر التشغيل -->
+        <div class="w-full md:w-64 lg:w-72">
+          <div class="">
+            <img src="dist/image/rep1.png" alt="صورة الكورس" class="w-full h-50 object-cover rounded-4xl" />
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- شبكة المحتوى: العمود الرئيسي + الشريط الجانبي -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- المحتوى الرئيسي (Tabs + الوصف) -->
+      <article class="lg:col-span-2 bg-white dark:bg-[#07102a] rounded-lg p-6 shadow-soft">
+        <!-- التبويبات -->
+        <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
+          <div class="flex gap-4 -mb-px">
+            <button data-tab="desc"
+              class="tab-btn py-3 px-4  font-medium border-b-2 border-transparent text-nahdi-700  text-purple-700 text-xl">الوصف</button>
+            <button data-tab="curr"
+              class="tab-btn py-3 px-4  font-medium border-b-2 border-transparent text-nahdi-700  text-purple-700 text-xl">مقالات
+              ذات صلة </button>
+            <button data-tab="instr"
+              class="tab-btn py-3 px-4  font-medium border-b-2 border-transparent text-nahdi-700  text-purple-700 text-xl">الكاتب</button>
+          </div>
+        </div>
+
+        <!-- محتويات التبويبات -->
+        <div>
+          <!-- الوصف -->
+          <div id="desc" class="tab-content space-y-6">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <ul class="space-y-3">
+                <li class="flex gap-3 items-start">
+                  <span
+                    class=" font-bold mt-1 inline-flex items-center justify-center w-6 h-6 rounded-full bg-nahdi-100 dark:bg-nahdi-700 text-nahdi-700 dark:text-nahdi-50 text-xs  text-purple-600">✓</span>
+                  <span class="font-bold">استغلال أدوات الذكاء الاصطناعي لتقسيم المهام اليومية بذكاء </span>
+                </li>
+                <li class="flex gap-3 items-start">
+                  <span
+                    class="mt-1 inline-flex items-center justify-center w-6 h-6 rounded-full bg-nahdi-100 dark:bg-nahdi-700 text-nahdi-700 dark:text-nahdi-50 text-xs font-bold text-purple-600">✓</span>
+                  <span class="font-bold">ترتيب أولويات الدراسة لتوفير الوقت وزيادة الإنتاجية</span>
+                </li>
+                <li class="flex gap-3 items-start">
+                  <span
+                    class="mt-1 inline-flex items-center justify-center w-6 h-6 rounded-full bg-nahdi-100 dark:bg-nahdi-700 text-nahdi-700 dark:text-nahdi-50 text-xs font-bold  text-purple-600">✓</span>
+                  <span class="font-bold">استخدام تطبيقات ذكية لمتابعة تقدمك وتحقيق أهدافك بسهولة </span>
+                </li>
+              </ul>
+
+              <ul class="space-y-3">
+                <li class="flex gap-3 items-start">
+                  <span
+                    class="mt-1 inline-flex items-center justify-center w-6 h-6 rounded-full bg-nahdi-100 dark:bg-nahdi-700 text-nahdi-700 dark:text-nahdi-50 text-xs font-bold text-purple-600">✓</span>
+                  <span class="font-bold">توفير وقت للمراجعة والتركيز على النقاط المهمة في المنهج</span>
+                </li>
+                <li class="flex gap-3 items-start">
+                  <span
+                    class="mt-1 inline-flex items-center justify-center w-6 h-6 rounded-full bg-nahdi-100 dark:bg-nahdi-700 text-nahdi-700 dark:text-nahdi-50 text-xs font-bold text-purple-600">✓</span>
+                  <span class="font-bold">نصائح عملية لتطبيق هذه التقنيات في جدولك الدراسي اليومي</span>
+                </li>
+                <li class="flex gap-3 items-start">
+                  <span
+                    class="mt-1 inline-flex items-center justify-center w-6 h-6 rounded-full bg-nahdi-100 dark:bg-nahdi-700 text-nahdi-700 dark:text-nahdi-50 text-xs font-bold  text-purple-600">✓</span>
+                  <span class="font-bold">توفير وقت للمراجعة والتركيز على النقاط المهمة في المنهج</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="text-xl font-semibold mb-2 glow-text-fixed">نظرة عامة على المقال </h4>
+              <p class="text-4xs text-gray-600 dark:text-gray-300 leading-relaxed font-bold">
+                هذا المقال يشرح كيف يمكن للطلاب استخدام أدوات الذكاء الاصطناعي لتنظيم جدولهم الدراسي بذكاء، تقسيم
+                المهام، ترتيب الأولويات، ومتابعة تقدمهم لتحقيق أقصى إنتاجية بدون ضياع الوقت. يركّز المقال على أحدث
+                أساليب التعلم باستخدام التكنولوجيا مثل الألعاب التفاعلية، الواقع المعزز، والبث الحي، ويقدّم نصائح عملية
+                لتطبيق هذه التقنيات بشكل يومي لجعل التعلم أسرع وأكثر متعة وفعالية.
+              </p>
+            </div>
+
+            <section
+              class="blog py-16 bg-gradient-to-r from-purple-50 to-purple-100 dark:from-gray-800 dark:to-gray-900">
+              <div class="max-w-7xl mx-auto px-4 text-center">
+                <h2 class="text-4xl font-bold glow-text-fixed mb-8"> مقالات ذات صلة</h2>
+                <p class="text-gray-700 dark:text-gray-300 mb-12 text-lg">
+                  اكتشف مقالات تعليمية مختصرة ومفيدة تعزز مهاراتك الدراسية وتساعدك على النجاح.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                  <!-- بطاقة مقالة -->
+                  <div
+                    class="blog-card bg-white dark:bg-slate-800 rounded-xl  shadow hover:shadow-xl hover:ring-4 hover:ring-[#9621a5] hover:ring-opacity-50 transition-all duration-300 overflow-hidden">
+                    <div class="h-48 w-full bg-pink-100 dark:bg-pink-900">
+                      <img src="dist/image/rep1.png" alt="عنوان المقال" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-3">
+                      <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">كيف تستفيد من الذكاء الاصطناعي
+                        في تنظيم وقتك الدراسي</h3>
+                      <p class="text-gray-600 dark:text-gray-300 text-sm">
+                        في هذا المقال نكشف كيفية استخدام أدوات الذكاء الاصطناعي لتنظيم جدولك، تقسيم المهام، وتحديد
+                        أولويات الدراسة بطريقة ذكية وفعّالة.
+                      </p>
+                      <a href="single-post.html"
+                        class="inline-block mt-2 btn bg-purple-600 text-white px-4 py-2 rounded-full font-semibold shadow hover:shadow-xl hover:ring-4 hover:ring-[#9621a5] hover:ring-opacity-50 transition-all duration-300 overflow-hidden">
+                        اقرأ المزيد
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- بطاقة مقالة -->
+                  <div
+                    class="blog-card bg-white dark:bg-slate-800 rounded-xl  shadow hover:shadow-xl hover:ring-4 hover:ring-[#9621a5] hover:ring-opacity-50 transition-all duration-300 overflow-hidden">
+                    <div class="h-48 w-full bg-pink-100 dark:bg-pink-900">
+                      <img src="dist/image/rep2.jpg" alt="عنوان المقال" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-3">
+                      <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">تقنيات مبتكرة للتعلّم الفعّال
+                        في عصر الإنترنت</h3>
+                      <p class="text-gray-600 dark:text-gray-300 text-sm">
+                        اكتشف خمس تقنيات حديثة (كالألعاب التفاعلية، الواقع المعزز، البث الحيّ) التي تجعل عملية التعلّم
+                        أسرع، أمتع، وأكثر فعالية — مع نصائح عملية لتطبيقها في يومك الدراسي
+                      </p>
+                      <a href="single-post.html"
+                        class="inline-block mt-2 btn bg-purple-600 text-white px-4 py-2 rounded-full font-semibold hover:shadow-lg transition">
+                        اقرأ المزيد
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- بطاقة مقالة -->
+                  <div
+                    class="blog-card bg-white dark:bg-slate-800 rounded-xl  shadow hover:shadow-xl hover:ring-4 hover:ring-[#9621a5] hover:ring-opacity-50 transition-all duration-300 overflow-hidden">
+                    <div class="h-48 w-full bg-pink-100 dark:bg-pink-900">
+                      <img src="dist/image/rep3.jpg" alt="عنوان المقال" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 space-y-3">
+                      <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">كيف تستفيد من الذكاء الاصطناعي
+                        في تنظيم وقتك الدراسي</h3>
+                      <p class="text-gray-600 dark:text-gray-300 text-sm">
+                        في هذا المقال نكشف كيفية استخدام أدوات الذكاء الاصطناعي لتنظيم جدولك، تقسيم المهام، وتحديد
+                        أولويات الدراسة بطريقة ذكية وفعّالة.
+                      </p>
+                      <a href="single-post.html"
+                        class="inline-block mt-2 btn bg-purple-600 text-white px-4 py-2 rounded-full font-semibold shadow hover:shadow-xl hover:ring-4 hover:ring-[#9621a5] hover:ring-opacity-50 transition-all duration-300 overflow-hidden">
+                        اقرأ المزيد
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- المنهج -->
+          <div id="curr" class="tab-content hidden space-y-4">
+            <h3 class="text-lg font-semibold text-nahdi-700 dark:text-nahdi-50">المنهج</h3>
+            <div class="space-y-3">
+              <div class="p-4 bg-gray-50 dark:bg-[#071233] rounded">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <div class="font-medium">كيفية إنشاء جدول دراسي مثالي باستخدام الأدوات الرقمية</div>
+
+                  </div>
+                  <button class="border border-purple-700 hover:bg-purple-400 p-3 rounded-2xl ">عرض</button>
+
+                </div>
+              </div>
+
+              <div class="p-4 bg-gray-50 dark:bg-[#071233] rounded">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <div class="font-medium"> 5 نصائح لتجنب التسويف وزيادة الإنتاجية </div>
+
+                  </div>
+                  <button class="border border-purple-700 hover:bg-purple-400 p-3 rounded-2xl ">عرض</button>
+                </div>
+              </div>
+              <div class="p-4 bg-gray-50 dark:bg-[#071233] rounded">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <div class="font-medium">استراتيجيات دمج الذكاء الاصطناعي في حياتك اليومية</div>
+
+                  </div>
+                  <button class="border border-purple-700 hover:bg-purple-400 p-3 rounded-2xl ">عرض</button>
+                </div>
+              </div>
+              <div class="p-4 bg-gray-50 dark:bg-[#071233] rounded">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <div class="font-medium">أدوات رقمية تساعدك على تتبع تقدمك الدراسي وتحقيق أهدافك</div>
+
+                  </div>
+                  <button class="border border-purple-700 hover:bg-purple-400 p-3 rounded-2xl ">عرض</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- المُدرّس -->
+          <div id="instr" class="tab-content hidden space-y-4">
+            <div class="flex items-center gap-4">
+              <img src="dist/image/per2.jpg" alt="المدرّس" class="w-20 h-20 rounded-full" />
+              <div>
+                <div class="font-semibold text-lg"> احمد الحسن</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">كاتب • خبرة 5 سنوات</div>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="font-semibold glow-text-fixed text-xl">نبذة عن الكاتب</h4>
+              <p class="text-4sm text-gray-600 dark:text-gray-300 font-bold">
+                مهندس برمجيات وخبير في الذكاء الصناعي، حاصل على درجة البكالوريوس من جامعة القاهرة. عمل على مشاريع
+                تعليمية وتطبيقات ذكية تهدف لتحسين أسلوب التعلم وإدارة الوقت. شغوف بمشاركة خبراته وأحدث الأدوات الرقمية
+                مع الطلاب لمساعدتهم على التفوق الدراسي.
+              </p>
+              <!-- أيقونات التواصل الاجتماعي -->
+              <div class="mt-6 flex gap-4">
+                <!-- واتس آب -->
+                <a href="https://wa.me/1234567890" target="_blank"
+                  class="text-green-500 hover:text-green-600 hover:shadow-[0_0_15px_rgba(72,187,120,0.5)] rounded-full p-2 transition-all duration-300">
+                  <i class="fab fa-whatsapp text-2xl"></i>
+                </a>
+                <!-- إنستجرام -->
+                <a href="https://instagram.com/username" target="_blank"
+                  class="text-pink-500 hover:text-pink-600 hover:shadow-[0_0_15px_rgba(236,72,153,0.5)] rounded-full p-2 transition-all duration-300">
+                  <i class="fab fa-instagram text-2xl"></i>
+                </a>
+                <!-- فيسبوك -->
+                <a href="https://facebook.com/username" target="_blank"
+                  class="text-blue-600 hover:text-blue-700 hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] rounded-full p-2 transition-all duration-300">
+                  <i class="fab fa-facebook text-2xl"></i>
+                </a>
+                <!-- لينكد إن -->
+                <a href="https://linkedin.com/in/username" target="_blank"
+                  class="text-blue-500 hover:text-blue-600 hover:shadow-[0_0_15px_rgba(37,99,235,0.5)] rounded-full p-2 transition-all duration-300">
+                  <i class="fab fa-linkedin text-2xl"></i>
+                </a>
+              </div>
+
+            </div>
+            <!-- تقييم المُدرّس -->
+            <div class="mt-6">
+              <h4 class="font-semibold glow-text-fixed text-lg mb-2">تقييم الطلاب</h4>
+              <div class="space-y-2">
+                <!-- 5 نجوم -->
+                <div class="flex items-center gap-3 ">
+                  <span class="w-10 text-sm">5 <i class="fa-solid fa-star text-yellow-400"></i></span>
+                  <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-4 bg-purple-500 rounded-full" style="width: 70%;"></div>
+                  </div>
+                  <span class="w-10 text-sm text-gray-600 dark:text-gray-300 text-right">70%</span>
+                </div>
+                <!-- 4 نجوم -->
+                <div class="flex items-center gap-3">
+                  <span class="w-10 text-sm">4 <i class="fa-solid fa-star text-yellow-400"></i></span>
+                  <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-4 bg-purple-500 rounded-full" style="width: 20%;"></div>
+                  </div>
+                  <span class="w-10 text-sm text-gray-600 dark:text-gray-300 text-right">20%</span>
+                </div>
+                <!-- 3 نجوم -->
+                <div class="flex items-center gap-3">
+                  <span class="w-10 text-sm">3 <i class="fa-solid fa-star text-yellow-400"></i></span>
+                  <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-4 bg-purple-500 rounded-full" style="width: 10%;"></div>
+                  </div>
+                  <span class="w-10 text-sm text-gray-600 dark:text-gray-300 text-right">10%</span>
+                </div>
+                <!-- 2 نجوم -->
+                <div class="flex items-center gap-3">
+                  <span class="w-10 text-sm">2 <i class="fa-solid fa-star text-yellow-400"></i></span>
+                  <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-4 bg-purple-500 rounded-full" style="width: 5%;"></div>
+                  </div>
+                  <span class="w-10 text-sm text-gray-600 dark:text-gray-300 text-right">5%</span>
+                </div>
+                <!-- 1 نجمة -->
+                <div class="flex items-center gap-3">
+                  <span class="w-10 text-sm">1 <i class="fa-solid fa-star text-yellow-400"></i></span>
+                  <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-4 bg-purple-500 rounded-full" style="width: 15%;"></div>
+                  </div>
+                  <span class="w-10 text-sm text-gray-600 dark:text-gray-300 text-right">15%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </article>
+
+      <!-- الشريط الجانبي -->
+      <aside class="bg-white dark:bg-[#07102a] rounded-lg p-6 shadow-soft lg:sticky lg:top-20">
+        <div class="flex flex-col gap-4">
+          <!-- بطاقة السعر -->
+          <div class="rounded-md p-4 bg-nahdi-50 dark:bg-[#081435]">
+            <div class=" items-baseline justify-between">
+
+              <div class="hidden md:block">
+                <img src="dist/image/ss.png" alt="غلاف الكورس" class="w-full h-30 md:h-40 object-cover rounded-4xl" />
+                <div class="mt-3 p-3">
+                  <div class="text-2xl font-extrabold text-nahdi-700 dark:text-nahdi-50">30$</div>
+                  <div class="text-xs text-gray-500 dark:text-gray-400">شامل الضريبة</div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              class="mt-4 w-full py-2 rounded-md bg-nahdi-500 hover:bg-purple-400   border border-purple-700 text-4xs font-bold">
+              اشتراك الآن
+            </button>
+          </div>
+
+          <!-- معلومات سريعة -->
+          <ul class="text-sm space-y-3">
+            <li class="flex justify-around">
+              <i class="fa fa-users"></i>
+              <span class="text-gray-600 dark:text-gray-300">عدد القراء</span>
+              <span class="font-medium">32</span>
+            </li>
+
+
+            <li class="flex justify-around">
+              <i class="fa fa-language"></i>
+              <span class="text-gray-600 dark:text-gray-300">اللغة</span>
+              <span class="font-medium">العربية</span>
+            </li>
+            <li class="flex justify-around">
+              <i class="fa fa-clipboard-check"></i>
+              <span class="text-gray-600 dark:text-gray-300">نسخ بلغات مختلفة</span>
+              <span class="font-medium">متوفرة</span>
+            </li>
+          </ul>
+
+          <div class="pt-3 border-t border-gray-100 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300">
+            <div class="mb-2">متوفر في التطبيق</div>
+            <div class="flex gap-2">
+              <button
+                class="flex-1 py-2 rounded border border-purple-700 hover:bg-purple-400  text-4xs font-bold">معاينة</button>
+              <button
+                class="flex-1 py-2 rounded border border-purple-700 hover:bg-purple-400  text-4xs font-bold">إهداء</button>
+            </div>
+          </div>
+        </div>
+        <section class="bg-white dark:bg-[#07102a] py-10 px-6">
+          <div class="max-w-3xl mx-auto text-center space-y-6">
+            <h2 class="text-3xl font-extrabold glow-text-fixed">💡 كلمات تحفيزية للقراءة</h2>
+            <p class="text-lg text-gray-700 dark:text-gray-300">
+              "القراءة هي المفتاح لعالم جديد من الأفكار والمعرفة، فافتح كتابًا واكتشف ما وراء السطور."
+            </p>
+            <p class="text-lg text-gray-700 dark:text-gray-300">
+              "من يقرأ يغامر، ومن يغامر يكتشف عوالم لم يزرها من قبل."
+            </p>
+            <p class="text-lg text-gray-700 dark:text-gray-300">
+              "اقرأ اليوم لتصبح أفضل نسخة منك غدًا."
+            </p>
+            <p class="text-lg text-gray-700 dark:text-gray-300">
+              "كل كتاب هو صديق جديد، وكل صفحة رحلة جديدة."
+            </p>
+            <p class="text-lg text-gray-700 dark:text-gray-300">
+              "الكتب تمنحك القوة لتفكر بحرية، والخيال ليحلق بلا حدود."
+            </p>
+          </div>
+        </section>
+
+    </div>
+  </main>
+  
+  <footer class="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 py-12 mt-10 
+  shadow-md dark:shadow-[0_0_15px_0_rgba(200,160,255,0.2)]">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+      <!-- القسم الأول -->
+      <div>
+        <h3 class="text-2xl font-bold text-purple-800 dark:text-purple-300 mb-4">بكالوريا بلس</h3>
+        <p class="text-sm leading-relaxed">
+          منصّة تعليمية متخصصة لمساعدة طلاب البكالوريا على التفوق والنجاح.
+          نقدم محتوى مبسّط، خطط مدروسة، ودعم مستمر يلائم احتياجات كل طالب للوصول لأفضل نتيجة.
+        </p>
+      </div>
+
+      <!-- القسم الثاني -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 text-purple-800 dark:text-purple-300">أهم الروابط</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">الرئيسية</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">الكورسات</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">اتصل بنا</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">المدونة</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">حول الشركة</a></li>
+        </ul>
+      </div>
+
+      <!-- القسم الثالث -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 text-purple-800 dark:text-purple-300">أهم الكورسات</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">رياضيات</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">فيزياء</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">كيمياء</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">علوم</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">عربي</a></li>
+        </ul>
+      </div>
+
+      <!-- القسم الرابع -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 text-purple-800 dark:text-purple-300">النشرة البريدية</h3>
+        <p class="text-sm mb-4">اشترك ليصلك أحدث الكورسات والعروض مباشرة إلى بريدك الإلكتروني.</p>
+        <form class="flex flex-col sm:flex-row gap-3">
+          <input type="email" placeholder="أدخل بريدك الإلكتروني"
+            class="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:border-purple-500 dark:bg-gray-800">
+          <button
+            class="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg font-semibold transition">اشترك
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- خط الحقوق -->
+    <div class="text-center mt-10 border-t border-gray-300 dark:border-gray-700 pt-6 text-sm">
+      كافة الحقوق محفوظة © 2025 لمنصة <span class="text-purple-700 dark:text-purple-400">بكالوريا بلس</span>
+    </div>
+  </footer>
+
+
+
+
+
+    <!-- Tab switching script (vanilla JS) -->
+    <script>
+      (function () {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        function activate(tabName) {
+          contents.forEach(c => {
+            if (c.id === tabName) c.classList.remove('hidden');
+            else c.classList.add('hidden');
+          });
+
+          tabs.forEach(btn => {
+            if (btn.dataset.tab === tabName) {
+              btn.classList.add('border-nahdi-700', 'text-nahdi-700');
+              btn.classList.remove('text-gray-600', 'dark:text-gray-300');
+              btn.style.borderBottomWidth = '2px';
+            } else {
+              btn.classList.remove('border-nahdi-700', 'text-nahdi-700');
+              btn.classList.add('text-gray-600', 'dark:text-gray-300');
+              btn.style.borderBottomWidth = '0';
+            }
+          });
+        }
+
+        // initial
+        activate('desc');
+
+        tabs.forEach(t => {
+          t.addEventListener('click', () => activate(t.dataset.tab));
+        });
+      })();
+    </script>
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {},
+        }
+      }
+    </script>
+
+
+
+    <script src="./dist/js/script.js"></script>
+
+
+
+</body>
+
+</html>

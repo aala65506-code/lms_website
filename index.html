@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    if (localStorage.getItem('color-theme') === 'dark' ||
+      (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./dist/output.css">
+  <link rel="stylesheet" href="./src/input.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+  <title>lms</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap"
+    rel="stylesheet">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+
+</head>
+
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-[Cairo]">
+
+  <!-- ✅ Navbar ثابت -->
+  <nav class="bg-white border-gray-200 dark:bg-gray-900 drop-shadow-md fixed top-0 left-0 w-full z-50">
+    <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+
+        <span class="self-center text-2xl font-bold dark:text-purple-400">بكالوريا بلس</span>
+      </a>
+
+      <!-- Navbar Links -->
+      <div class="hidden md:flex items-center space-x-4 rtl:space-x-reverse">
+        <ul class="flex space-x-4 rtl:space-x-reverse font-medium">
+          <li><a href="#" class="hover:text-purple-700 dark:text-purple-400">الرئيسية</a></li>
+          <li><a href="#" class="hover:text-purple-700 dark:text-purple-400">خدماتنا</a></li>
+          <li><a href="#" class="hover:text-purple-700 dark:text-purple-400">كورساتنا</a></li>
+          <li><a href="#" class="hover:text-purple-700 dark:text-purple-400">من نحن</a></li>
+          <li><a href="#" class="hover:text-purple-700 dark:text-purple-400">تواصل معنا</a></li>
+        </ul>
+
+        <!-- Language Dropdown -->
+        <div class="relative">
+          <button id="lang-btn"
+            class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-purple-400 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
+            English (US)
+          </button>
+          <div id="lang-menu"
+            class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-lg shadow-md z-50">
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">English (US)</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Deutsch</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Italiano</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">中文 (繁體)</a>
+          </div>
+        </div>
+
+        <!-- Toggle Theme -->
+        <button id="theme-toggle" type="button"
+          class="text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-sm p-2">
+          🌞/🌙
+        </button>
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden flex items-center space-x-2 rtl:space-x-reverse">
+        <button id="mobile-menu-btn"
+          class="text-gray-600 dark:text-gray-300 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+          ☰
+        </button>
+        <button id="theme-toggle-mobile"
+          class="text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg p-2">🌞/🌙</button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800">
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">الرئيسية</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">خدماتنا</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">كورساتنا</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">من نحن</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">تواصل معنا</a>
+      <div class="border-t border-gray-200 dark:border-gray-700"></div>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">English (US)</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">Deutsch</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">Italiano</a>
+      <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700">中文 (繁體)</a>
+    </div>
+  </nav>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+
+    document.getElementById('lang-btn').addEventListener('click', function () {
+      document.getElementById('lang-menu').classList.toggle('hidden');
+    });
+
+
+    function toggleTheme() {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('color-theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('color-theme', 'dark');
+      }
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    document.getElementById('theme-toggle-mobile').addEventListener('click', toggleTheme);
+  </script>
+
+  <!-- ✅ Hero Section -->
+  <section class="hero flex items-center pt-32 pb-10 min-h-[80vh] dark:bg-gray-900 bg-gray-200">
+  <div class="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center justify-between px-6">
+
+    <!-- النصوص -->
+    <div class="hero-info w-full md:w-1/2 flex flex-col justify-center 
+                text-center md:text-right items-center md:items-start">
+
+      <h1 class="glow-text-fixed text-4xl md:text-5xl font-bold leading-snug mb-5">
+        ابدأ رحلتك نحو علامة كاملة في البكالوريا
+      </h1>
+
+      <h2 class="text-gray-800 dark:text-purple-300 text-2xl md:text-3xl font-semibold mb-5">
+        دروس مرتبة، شروحات بسيطة، وكل المواد العلمية بمكان واحد
+      </h2>
+
+      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6 w-[90%] md:w-full font-bold md:ml-0">
+        تحضير شامل لمواد العلوم، الرياضيات، الفيزياء، الكيمياء وغيرها، بطريقة واضحة ومختصرة.
+        مع اختبارات، ملخصات، وأسئلة متوقعة تساعدك توصل للنجاح بثقة.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+        <a class="btn bg-purple-700 text-white px-6 py-3 rounded-lg">تواصل معنا</a>
+        <a class="btn bg-purple-700 text-white px-6 py-3 rounded-lg">سجّل وابدأ التفوق</a>
+      </div>
+
+    </div>
+
+    <!-- الصورة -->
+    <div class="w-full md:w-1/2 flex justify-center md:justify-end mt-10 md:mt-0">
+      <img src="dist/image/hero.png" alt="طالب يدرس" class="w-[75%] drop-shadow-lg img-translate img-ra">
+    </div>
+
+  </div>
+</section>
+
+
+  <!--ميزات  -->
+  <section class="py-16 px-6 md:px-16">
+
+    <h2 class="glow-text-fixed text-center text-4xl font-bold mt-5 mb-4">
+      لماذا تختارنا؟
+    </h2>
+
+    <p
+      class="text-gray-700 dark:text-gray-300 leading-relaxed mb-10 w-[85%] font-semibold text-center mx-auto text-2xl">
+      نحن لا نُقدّم مجرد دروس، بل منظومة تعليمية متكاملة صُممت بعناية لتكون الداعم الحقيقي لكل طالب يطمح للتفوّق في
+      البكالوريا. نوفّر محتوى علمي واضح ومنهجي، شروحات دقيقة بأسلوب مبسّط، أسئلة متوقعة، نماذج امتحانية محلولة، ومتابعة
+      ترافق الطالب
+      خطوة بخطوة.
+    </p>
+
+    <!-- ✅ إضافة gap داخلي بحيث ما يلزق باليمين -->
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pr-4">
+
+      <div class="text-center border p-6 bg-gray-100 dark:bg-slate-700 rounded-xl 
+    shadow-[0_4px_10px_rgba(168,85,247,0.3)] 
+    dark:shadow-[0_4px_12px_rgba(168,85,247,0.15)] 
+    hover:scale-[1.02] cursor-pointer transition">
+
+        <i class="fa-solid fa-graduation-cap text-purple-800 dark:text-purple-300 text-4xl mb-4"></i>
+        <h3 class="text-2xl font-bold dark:text-white mb-2">محتوى أكاديمي موثوق</h3>
+        <p class="text-gray-600 dark:text-gray-300">دروس وشروحات مُعدّة من قبل أساتذة مختصين، وفق المنهاج الرسمي وبطريقة
+          تسهّل الفهم والحفظ.</p>
+      </div>
+
+      <div class="text-center border p-6 bg-gray-100 dark:bg-slate-700 rounded-xl 
+    shadow-[0_4px_10px_rgba(168,85,247,0.3)] 
+    dark:shadow-[0_4px_12px_rgba(168,85,247,0.15)] 
+ hover:scale-[1.02] cursor-pointer transition">
+
+        <i class="fa-solid fa-book-open text-purple-800 dark:text-purple-300 text-4xl mb-4"></i>
+        <h3 class="text-2xl font-bold dark:text-white mb-2">ملخصات ونماذج امتحانية</h3>
+        <p class="text-gray-600 dark:text-gray-300">نوفر ملخصات مركّزة، أسئلة متوقعة، ونماذج سابقة محلولة للتدرّب بثقة.
+        </p>
+      </div>
+
+      <div class="text-center border p-6 bg-gray-100 dark:bg-slate-700 rounded-xl 
+    shadow-[0_4px_10px_rgba(168,85,247,0.3)] 
+    dark:shadow-[0_4px_12px_rgba(168,85,247,0.15)] 
+   hover:scale-[1.02] cursor-pointer transition">
+
+        <i class="fa-solid fa-gear text-purple-800 dark:text-purple-300 text-4xl mb-4"></i>
+        <h3 class="text-2xl font-bold dark:text-white mb-2">منصة ذكية وسهلة الاستخدام</h3>
+        <p class="text-gray-600 dark:text-gray-300">واجهة مريحة وسريعة تتيح الوصول للدروس والتقدّم الدراسي بسهولة.</p>
+      </div>
+
+      <div class="text-center border p-6 bg-gray-100 dark:bg-slate-700 rounded-xl 
+    shadow-[0_4px_10px_rgba(168,85,247,0.3)] 
+    dark:shadow-[0_4px_12px_rgba(168,85,247,0.15)] 
+   hover:scale-[1.02] cursor-pointer transition">
+
+        <i class="fa-solid fa-star text-purple-800 dark:text-purple-300 text-4xl mb-4"></i>
+        <h3 class="text-2xl font-bold dark:text-white mb-2">متابعة ودعم مستمر</h3>
+        <p class="text-gray-600 dark:text-gray-300">نرافقك خطوة بخطوة، نجيب على استفساراتك، ونضمن بقاءك على الطريق
+          الصحيح.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!--تصنيفات-->
+  <section class="dark:bg-gray-900 bg-gray-100 p-10">
+    <h2 class="text-center  glow-text-fixed  text-4xl font-bold mt-5 mb-4">
+      كافة الكورسات
+    </h2>
+
+    <p
+      class="text-gray-700 dark:text-gray-300 leading-relaxed mb-10 w-[85%] font-semibold text-center mx-auto text-2xl">
+      نقدّم لك جميع كورسات البكالوريا في مكان واحد، مصمّمة لتغطي كل المواد العلمية والأدبية بأسلوب مبسّط ومنهجي.
+      سواء كنت تبحث عن فهم أعمق، تدريب مكثّف، أو مراجعة نهائية، ستجد دائمًا ما تحتاجه لتتفوق بثقة.
+    </p>
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10  ">
+
+
+      <div
+        class="catigory-course flex items-center justify-between bg-gray-200   dark:bg-slate-700 p-2 rounded-md cursor-pointer 
+  transition-transform duration-300 ease-in-out hover:translate-x-1 hover:translate-y-1 hover:shadow-md border border-fuchsia-800">
+
+        <h3 class="text-xl font-bold  text-purple-800 dark:text-purple-300  ">رياضيات</h3>
+        <img width="80" class="rounded-full border border-fuchsia-900  " src="dist/image/رياضيات.png">
+
+
+      </div>
+      <div
+        class="catigory-course flex items-center justify-between bg-gray-200   dark:bg-slate-700 p-2 rounded-md cursor-pointer 
+  transition-transform duration-300 ease-in-out hover:translate-x-1 hover:translate-y-1 hover:shadow-md border border-fuchsia-800">
+
+        <h3 class="text-xl font-bold  text-purple-800 dark:text-purple-300  ">فيزياء</h3>
+        <img width="80" class="rounded-full border border-fuchsia-900  " src="dist/image/فيزياء.png">
+
+
+      </div>
+      <div
+        class="catigory-course flex items-center justify-between bg-gray-200   dark:bg-slate-700 p-2 rounded-md cursor-pointer 
+  transition-transform duration-300 ease-in-out hover:translate-x-1 hover:translate-y-1 hover:shadow-md border border-fuchsia-800">
+
+        <h3 class="text-xl font-bold  text-purple-800 dark:text-purple-300  ">كيمياء</h3>
+        <img width="80" class="rounded-full border border-fuchsia-900  " src="dist/image/كيمياء.png">
+
+
+      </div>
+      <div
+        class="catigory-course flex items-center justify-between bg-gray-200   dark:bg-slate-700 p-2 rounded-md cursor-pointer 
+  transition-transform duration-300 ease-in-out hover:translate-x-1 hover:translate-y-1 hover:shadow-md border border-fuchsia-800">
+
+        <h3 class="text-xl font-bold  text-purple-800 dark:text-purple-300 ">علوم</h3>
+        <img width="80" class="rounded-full border border-fuchsia-900  " src="dist/image/علوم.png">
+
+
+      </div>
+      <div
+        class="catigory-course flex items-center justify-between bg-gray-200   dark:bg-slate-700 p-2 rounded-md cursor-pointer 
+  transition-transform duration-300 ease-in-out hover:translate-x-1 hover:translate-y-1 hover:shadow-md border border-fuchsia-800">
+        <h3 class="text-xl font-bold  text-purple-800 dark:text-purple-300 ">عربي</h3>
+        <img width="80" class="rounded-full border border-fuchsia-900  " src="dist/image/عربي.png">
+
+
+      </div>
+      <div
+        class="catigory-course flex items-center justify-between bg-gray-200   dark:bg-slate-700 p-2 rounded-md cursor-pointer 
+  transition-transform duration-300 ease-in-out hover:translate-x-1 hover:translate-y-1 hover:shadow-md border border-fuchsia-800">
+
+        <h3 class="text-xl font-bold  text-purple-800 dark:text-purple-300  ">فلسفة</h3>
+        <img width="80" class="rounded-full border border-fuchsia-900  " src="dist/image/فلسفة.png">
+
+
+      </div>
+      <div
+        class="catigory-course flex items-center justify-between bg-gray-200   dark:bg-slate-700 p-2 rounded-md cursor-pointer 
+  transition-transform duration-300 ease-in-out hover:translate-x-1 hover:translate-y-1 hover:shadow-md border border-fuchsia-800">
+
+        <h3 class="text-xl font-bold  text-purple-800 dark:text-purple-300  ">تاريخ</h3>
+        <img width="80" class="rounded-full border border-fuchsia-900  " src="dist/image/تاريخ.png">
+
+
+      </div>
+      <div
+        class="catigory-course flex items-center justify-between bg-gray-200   dark:bg-slate-700 p-2 rounded-md cursor-pointer 
+  transition-transform duration-300 ease-in-out hover:translate-x-1 hover:translate-y-1 hover:shadow-md border border-fuchsia-800">
+
+        <h3 class="text-xl font-bold  text-purple-800 dark:text-purple-300  ">انكليزي</h3>
+        <img width="80" class="rounded-full border border-fuchsia-900  " src="dist/image/انكليزي.png">
+
+
+      </div>
+    </div>
+  </section>
+  <!--من نحن -->
+  <section class="hero flex items-center pt-20 pb-10 min-h-[60vh] dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center justify-between px-6">
+
+      <div class="about-right">
+        <h2 class=" text-center md:text-right  glow-text-fixed  text-4xl font-bold mt-5 mb-4 ">
+          لماذا تختارنا؟
+        </h2>
+        <p
+          class="text-center md:text-right text-gray-700 dark:text-gray-300 leading-8 mb-6 w-[90%] font-bold text-xl  mx-auto md:mr-0">
+          نحن منصة تعليمية رقمية متخصصة في دعم طلاب البكالوريا، نسعى لتقديم تجربة تعليمية متكاملة تجمع بين الدقة
+          الأكاديمية، الأسلوب المبسّط، والتقنيات الحديثة.
+          هدفنا أن نكون رفيقك الدراسي الأقرب، نوفّر لك الدروس، الشروحات، الملخصات، الاختبارات، والمتابعة المستمرة،
+          لنمنحك الطريق الأقصر نحو التفوق والثقة يوم الامتحان.
+        </p>
+
+        <ul class="flex flex-col items-center md:items-start">
+          <li class="bg-gray-100 w-[70%] p-2.5 mb-5 rounded-[80px]">
+            <i class="fa-regular fa-square-check text-green-500 text-2xl  "></i>
+            <span class="text-xl  dark:text-black ">خبراء لأكثر من 20 عام </span>
+          </li>
+          <li class="bg-gray-100 w-[70%] p-2.5 mb-5 rounded-[80px]">
+            <i class="fa-regular fa-square-check text-green-500 text-2xl  "></i>
+            <span class="text-xl  dark:text-black "> اكثر من 80 اختبار شامل </span>
+          </li>
+          <li class="bg-gray-100 w-[70%] p-2.5 mb-5 rounded-[80px]">
+            <i class="fa-regular fa-square-check text-green-500 text-2xl  "></i>
+            <span class="text-xl  dark:text-black "> كورسات مميزة تتجاوز 100 كورس </span>
+          </li>
+        </ul>
+
+      </div>
+      <div class=" hidden about-left md:grid grid-cols-2 gap-2 img-translate">
+        <img class="img-ra" src="dist/image/about1.png">
+        <img class="mt-[100px] img-ra" src="dist/image/about2.png">
+      </div>
+    </div>
+  </section>
+
+  <!--كورسات -->
+  <section class="allcourse py-10 bg-gray-100 dark:bg-gray-900 ">
+    <h2 class="text-center glow-text-fixed  text-4xl font-bold mt-5 mb-4">
+      الكورسات المتوفرة
+    </h2>
+
+    <p
+      class="text-gray-700 dark:text-gray-300 leading-relaxed mb-10 w-[85%] font-semibold text-center mx-auto text-2xl">
+      نقدّم لك مجموعة شاملة من الكورسات المصممة خصيصًا لطلاب البكالوريا، تغطي جميع المواد العلمية والأدبية بأعلى جودة.
+      تدرّج معنا من الفهم إلى الإتقان بخطوات بسيطة وتمارين تطبيقية تساعدك على النجاح بثقة.
+    </p>
+    <div class="swiper max-w-7xl mx-auto">
+      <!-- ✅ شبكة الكورسات (4 في الصف بالشاشات الكبيرة) -->
+      <div class="swiper-wrapper"> <!-- ✅ كارد واحد (انسخه لبقية الكورسات) -->
+        <div
+          class="cour swiper-slide bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl ">
+          <div class="cour-img w-full aspect-4/3 overflow-hidden ">
+            <img src="dist/image/انكليزي.png"
+              class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+              alt="كورس إنكليزي">
+          </div>
+          <div class="cour-info p-4 space-y-3">
+            <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">كورس إنكليزي</h3>
+            <p class="text-gray-600 dark:text-gray-300"> كورس شامل يساعدك تتقن اللغة بأسلوب بسيط وتدريجي مع اختبرات و
+              متحانات شاملة لكل مستوى .</p>
+
+            <div class="price flex items-center justify-between">
+              <div class="text-gray-700 dark:text-gray-300">
+                <span class="font-semibold">السعر :</span>
+                <span class="line-through text-red-500">250$</span>
+              </div>
+              <span class="text-purple-700 dark:text-purple-300 font-bold text-lg">150$</span>
+            </div>
+
+            <a href="course.html"
+              class="block text-center w-full mt-3 bg-purple-700 hover:bg-purple-800 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 rounded-lg transition-all">
+              تفاصيل الكورس
+            </a>
+          </div>
+        </div>
+        <div
+          class="cour swiper-slide bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md ">
+            <div class="cour-img w-full aspect-4/3 overflow-hidden">
+            <img src="dist/image/رياضيات.png"   class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+ alt="كورس إنكليزي">
+          </div>
+          <div class="cour-info p-4 space-y-3">
+            <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">كورس الرياضيات</h3>
+            <p class="text-gray-600 dark:text-gray-300">فهم شامل لكل الأفكار من الأساسيات وحتى أصعب المسائل، بطريقة
+              منظمة
+              مع تمارين محلولة.</p>
+
+            <div class="price flex items-center justify-between">
+              <div class="text-gray-700 dark:text-gray-300">
+                <span class="font-semibold">السعر :</span>
+                <span class="line-through text-red-500">250$</span>
+              </div>
+              <span class="text-purple-700 dark:text-purple-300 font-bold text-lg">150$</span>
+            </div>
+
+            <a href="course.html"
+              class="block text-center w-full mt-3 bg-purple-700 hover:bg-purple-800 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 rounded-lg transition-all">
+              تفاصيل الكورس
+            </a>
+          </div>
+        </div>
+        <div
+          class="cour swiper-slide bg-white dark:bg-slate-800 rounded-xl overflow-hidden ">
+          <div class="cour-img w-full aspect-4/3 overflow-hidden">
+            <img src="dist/image/فيزياء.png"               class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+ alt="كورس إنكليزي">
+          </div>
+          <div class="cour-info p-4 space-y-3">
+            <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300"> كورس الفيزياء</h3>
+            <p class="text-gray-600 dark:text-gray-300">تبسيط القوانين، رسم المخططات، وتحليل المسائل بدقة مع أمثلة
+              واقعية
+              تساعدك تحفظ وتفهم بسهولة.</p>
+
+            <div class="price flex items-center justify-between">
+              <div class="text-gray-700 dark:text-gray-300">
+                <span class="font-semibold">السعر :</span>
+                <span class="line-through text-red-500">250$</span>
+              </div>
+              <span class="text-purple-700 dark:text-purple-300 font-bold text-lg">150$</span>
+            </div>
+
+            <a href="course.html"
+              class="block text-center w-full mt-3 bg-purple-700 hover:bg-purple-800 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 rounded-lg transition-all">
+              تفاصيل الكورس
+            </a>
+          </div>
+        </div>
+        <div
+          class="cour swiper-slide bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md ">
+        <div class="cour-img w-full aspect-4/3 overflow-hidden">
+            <img src="dist/image/كيمياء.png"               class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+alt="كورس إنكليزي">
+          </div>
+          <div class="cour-info p-4 space-y-3">
+            <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300"> كورس الكيمياء</h3>
+            <p class="text-gray-600 dark:text-gray-300">شرح التفاعلات والمعادلات بطريقة ممتعة، مع جداول وتلخيصات تسهّل
+              عليك الحفظ والتحليل.</p>
+
+            <div class="price flex items-center justify-between">
+              <div class="text-gray-700 dark:text-gray-300">
+                <span class="font-semibold">السعر :</span>
+                <span class="line-through text-red-500">250$</span>
+              </div>
+              <span class="text-purple-700 dark:text-purple-300 font-bold text-lg">150$</span>
+            </div>
+
+            <a href="course.html"
+              class="block text-center w-full mt-3 bg-purple-700 hover:bg-purple-800 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 rounded-lg transition-all">
+              تفاصيل الكورس
+            </a>
+          </div>
+        </div>
+        <div
+          class="cour swiper-slide bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md ">
+         <div class="cour-img w-full aspect-4/3 overflow-hidden">
+            <img src="dist/image/علوم.png"               class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+ alt="كورس إنكليزي">
+          </div>
+          <div class="cour-info p-4 space-y-3">
+            <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">كورس العلوم</h3>
+            <p class="text-gray-600 dark:text-gray-300">شرح منهجي لجميع الدروس، صور توضيحية، وربط مباشر مع أسئلة
+              البكالوريا الرسمية بطريقة صحيحة و مميزة .</p>
+
+            <div class="price flex items-center justify-between">
+              <div class="text-gray-700 dark:text-gray-300">
+                <span class="font-semibold">السعر :</span>
+                <span class="line-through text-red-500">250$</span>
+              </div>
+              <span class="text-purple-700 dark:text-purple-300 font-bold text-lg">150$</span>
+            </div>
+
+            <a href="course.html"
+              class="block text-center w-full mt-3 bg-purple-700 hover:bg-purple-800 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 rounded-lg transition-all">
+              تفاصيل الكورس
+            </a>
+          </div>
+        </div>
+        <div
+          class="cour swiper-slide bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md ">
+            <div class="cour-img w-full aspect-4/3 overflow-hidden">
+            <img src="dist/image/عربي.png"               class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+alt="كورس إنكليزي">
+          </div>
+          <div class="cour-info p-4 space-y-3">
+            <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">كورس عربي</h3>
+            <p class="text-gray-600 dark:text-gray-300">قواعد، تعبير، نصوص وبلاغة، بأسلوب مبسّط يخليك تسيطر على المادة
+              بدون حِفظ عشوائي.
+            <div class="price flex items-center justify-between">
+              <div class="text-gray-700 dark:text-gray-300">
+                <span class="font-semibold">السعر :</span>
+                <span class="line-through text-red-500">250$</span>
+              </div>
+              <span class="text-purple-700 dark:text-purple-300 font-bold text-lg">150$</span>
+            </div>
+
+            <a href="course.html"
+              class="block text-center w-full mt-3 bg-purple-700 hover:bg-purple-800 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 rounded-lg transition-all">
+              تفاصيل الكورس
+            </a>
+          </div>
+        </div>
+        <div
+          class="cour swiper-slide bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md ">
+     <div class="cour-img w-full aspect-4/3 overflow-hidden">
+            <img src="dist/image/فلسفة.png"              class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+ alt="كورس إنكليزي">
+          </div>
+          <div class="cour-info p-4 space-y-3">
+            <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">كورس الفلسفة </h3>
+            <p class="text-gray-600 dark:text-gray-300">تبسيط المفاهيم الفلسفية، كيفية كتابة مقالة مثالية، وتحليل أسئلة
+              البكالوريا بطريقة نموذجية..</p>
+
+            <div class="price flex items-center justify-between">
+              <div class="text-gray-700 dark:text-gray-300">
+                <span class="font-semibold">السعر :</span>
+                <span class="line-through text-red-500">250$</span>
+              </div>
+              <span class="text-purple-700 dark:text-purple-300 font-bold text-lg">150$</span>
+            </div>
+
+            <a href="course.html"
+              class="block text-center w-full mt-3 bg-purple-700 hover:bg-purple-800 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 rounded-lg transition-all">
+              تفاصيل الكورس
+            </a>
+          </div>
+        </div>
+        <div
+          class="cour swiper-slide bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md ">
+            <div class="cour-img w-full aspect-4/3 overflow-hidden">
+            <img src="dist/image/تاريخ.png"               class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+ alt="كورس إنكليزي">
+          </div>
+          <div class="cour-info p-4 space-y-3">
+            <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">كورس تاريخ</h3>
+            <p class="text-gray-600 dark:text-gray-300">رحلة مبسّطة عبر أهم الأحداث التاريخية مع خرائط، تحليلات، وأسلوب
+              يساعدك تحفظ وتفهم بعيداً عن الحفظ 
+
+            <div class="price flex items-center justify-between">
+              <div class="text-gray-700 dark:text-gray-300">
+                <span class="font-semibold">السعر :</span>
+                <span class="line-through text-red-500">250$</span>
+              </div>
+              <span class="text-purple-700 dark:text-purple-300 font-bold text-lg">150$</span>
+            </div>
+            <a href="course.html"
+              class="block text-center w-full mt-3 bg-purple-700 hover:bg-purple-800 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 rounded-lg transition-all">
+              تفاصيل الكورس
+            </a>
+          </div>
+        </div>
+
+        <!-- ⚠ انسخي الكارد نفسه لثلاث أو سبع مرات حسب الكورسات -->
+
+      </div>
+
+      <!-- ✅ أزرار تحت السلايدر بالنص -->
+      <div class="swiper-controls  mb-6">
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+
+    </div>
+  </section>
+  <!--الاسئلة الاكثر شيوعا-->
+  <section class="pb-16 ">
+    <h2 class="text-center glow-text-fixed  text-4xl font-bold mt-5 mb-4">
+      الأسئلة الأكثر شيوعاً
+    </h2>
+
+    <p
+      class="text-gray-700 dark:text-gray-300 leading-relaxed mb-10 w-[85%] font-semibold text-center mx-auto text-2xl">
+      قد يكون لديك بعض الأسئلة حول آلية عمل منصتنا، طرق الاشتراك، أو كيفية متابعة الدروس.
+      لذلك جمعنا لك أهم الأسئلة وأجبنا عنها بكل وضوح لتكون الصورة كاملة أمامك.
+    </p>
+
+    <div class="main-faq max-w-7xl grid md:grid-cols-2 grid-cols-1 gap-6 items-center">
+      <!-- قسم الأسئلة -->
+      <div class="faq-info">
+        <div id="accordion-collapse" data-accordion="collapse">
+
+          <!-- سؤال 1 -->
+          <h2 id="q1">
+            <button type="button"
+              class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-b-0 border-gray-200 rounded-t-xl hover:bg-blue-100 dark:hover:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+              data-accordion-target="#a1" aria-expanded="false" aria-controls="a1">
+              كيف يمكنني التسجيل في المنصة؟
+              <svg class="w-3 h-3 rotate-180 shrink-0" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 5 5 1 1 5" />
+              </svg>
+            </button>
+          </h2>
+          <div id="a1" class="hidden" aria-labelledby="q1">
+            <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-300">يمكنك التسجيل بسهولة عبر الضغط على زر "إنشاء حساب"، ثم إدخال
+                البريد الإلكتروني وكلمة المرور وتأكيد التسجيل من خلال البريد الإلكتروني.</p>
+            </div>
+          </div>
+
+          <!-- سؤال 2 -->
+          <h2 id="q2">
+            <button type="button"
+              class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-b-0 border-gray-200 hover:bg-blue-100 dark:hover:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+              data-accordion-target="#a2" aria-expanded="false" aria-controls="a2">
+              هل يمكنني متابعة الدروس بعد التسجيل مباشرة؟
+              <svg class="w-3 h-3 rotate-180 shrink-0" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 5 5 1 1 5" />
+              </svg>
+            </button>
+          </h2>
+          <div id="a2" class="hidden" aria-labelledby="q2">
+            <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-300">نعم! بعد إنشاء الحساب يمكنك مباشرةً الوصول إلى الدروس المجانية
+                أو الاشتراك للوصول إلى كامل المحتوى.</p>
+            </div>
+          </div>
+
+          <!-- سؤال 3 -->
+          <h2 id="q3">
+            <button type="button"
+              class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-b-0 border-gray-200 hover:bg-blue-100 dark:hover:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+              data-accordion-target="#a3" aria-expanded="false" aria-controls="a3">
+              هل الدروس مسجلة أم مباشرة؟
+              <svg class="w-3 h-3 rotate-180 shrink-0" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 5 5 1 1 5" />
+              </svg>
+            </button>
+          </h2>
+          <div id="a3" class="hidden" aria-labelledby="q3">
+            <div class="p-5 border border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-300">نوفر دروساً مسجلة يمكن مشاهدتها في أي وقت، بالإضافة لحصص بث
+                مباشر للتفاعل مع الأساتذة.</p>
+            </div>
+          </div>
+
+          <!-- سؤال 4 -->
+          <h2 id="q4">
+            <button type="button"
+              class="flex items-center justify-between w-full p-5 font-medium text-gray-500 border border-gray-200 hover:bg-blue-100 dark:hover:bg-gray-800 dark:border-gray-700 dark:text-gray-400 rounded-b-xl"
+              data-accordion-target="#a4" aria-expanded="false" aria-controls="a4">
+              كيف يمكنني التواصل مع الدعم الفني؟
+              <svg class="w-3 h-3 rotate-180 shrink-0" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 5 5 1 1 5" />
+              </svg>
+            </button>
+          </h2>
+          <div id="a4" class="hidden" aria-labelledby="q4">
+            <div class="p-5 border border-t-0 border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-300">يمكنك التواصل معنا من خلال صفحة "اتصل بنا" أو عبر البريد
+                الإلكتروني والدعم متاح على مدار الساعة.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- قسم الصورة -->
+      <div class="faq-img flex justify-center md:justify-end">
+        <img src="dist/image/faq.png" class="img-ra object-contain h-80 md:h-[350px] w-auto">
+      </div>
+    </div>
+  </section>
+
+  <!-- سكشن المدونة / الموارد المجانية -->
+  <section class="blog py-16 bg-gradient-to-r from-purple-50 to-purple-100 dark:from-gray-800 dark:to-gray-900">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h2 class="text-4xl font-bold glow-text-fixed  mb-8">آخر المقالات التعليمية</h2>
+      <p class="text-gray-700 dark:text-gray-300 mb-12 text-lg">
+        اكتشف مقالات تعليمية مختصرة ومفيدة تعزز مهاراتك الدراسية وتساعدك على النجاح.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <!-- بطاقة مقالة -->
+        <div
+          class="blog-card bg-white dark:bg-slate-800 rounded-xl  shadow hover:shadow-xl hover:ring-4 hover:ring-[#9621a5] hover:ring-opacity-50 transition-all duration-300 overflow-hidden">
+          <div class="h-48 w-full bg-pink-100 dark:bg-pink-900">
+            <img src="dist/image/rep1.png" alt="عنوان المقال" class="w-full h-full object-cover">
+          </div>
+          <div class="p-5 space-y-3">
+            <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">كيف تستفيد من الذكاء الاصطناعي في تنظيم
+              وقتك الدراسي</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">
+              في هذا المقال نكشف كيفية استخدام أدوات الذكاء الاصطناعي لتنظيم جدولك، تقسيم المهام، وتحديد أولويات الدراسة
+              بطريقة ذكية وفعّالة.
+            </p>
+            <a href="single-post.html"
+              class="inline-block mt-2 btn bg-purple-600 text-white px-4 py-2 rounded-full font-semibold shadow hover:shadow-xl hover:ring-4 hover:ring-[#9621a5] hover:ring-opacity-50 transition-all duration-300 overflow-hidden">
+              اقرأ المزيد
+            </a>
+          </div>
+        </div>
+
+        <!-- بطاقة مقالة -->
+        <div
+          class="blog-card bg-white dark:bg-slate-800 rounded-xl  shadow hover:shadow-xl hover:ring-4 hover:ring-[#9621a5] hover:ring-opacity-50 transition-all duration-300 overflow-hidden">
+          <div class="h-48 w-full bg-pink-100 dark:bg-pink-900">
+            <img src="dist/image/rep2.jpg" alt="عنوان المقال" class="w-full h-full object-cover">
+          </div>
+          <div class="p-5 space-y-3">
+            <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">تقنيات مبتكرة للتعلّم الفعّال في عصر
+              الإنترنت</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">
+              اكتشف خمس تقنيات حديثة (كالألعاب التفاعلية، الواقع المعزز، البث الحيّ) التي تجعل عملية التعلّم أسرع، أمتع،
+              وأكثر فعالية — مع نصائح عملية لتطبيقها في يومك الدراسي
+            </p>
+            <a href="single-post.html"
+              class="inline-block mt-2 btn bg-purple-600 text-white px-4 py-2 rounded-full font-semibold shadow hover:shadow-xl hover:ring-4 hover:ring-[#9621a5] hover:ring-opacity-50 transition-all duration-300 overflow-hidden">
+              اقرأ المزيد
+            </a>
+          </div>
+        </div>
+
+        <!-- بطاقة مقالة -->
+        <div
+          class="blog-card bg-white dark:bg-slate-800 rounded-xl  shadow hover:shadow-xl hover:ring-4 hover:ring-[#9621a5] hover:ring-opacity-50 transition-all duration-300 overflow-hidden">
+          <div class="h-48 w-full bg-pink-100 dark:bg-pink-900">
+            <img src="dist/image/rep3.jpg" alt="عنوان المقال" class="w-full h-full object-cover">
+          </div>
+          <div class="p-5 space-y-3">
+            <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">كيف تستفيد من الذكاء الاصطناعي في تنظيم
+              وقتك الدراسي</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">
+              في هذا المقال نكشف كيفية استخدام أدوات الذكاء الاصطناعي لتنظيم جدولك، تقسيم المهام، وتحديد أولويات الدراسة
+              بطريقة ذكية وفعّالة.
+            </p>
+            <a href="single-post.html"
+              class="inline-block mt-2 btn bg-purple-600 text-white px-4 py-2 rounded-full font-semibold shadow hover:shadow-xl hover:ring-4 hover:ring-[#9621a5] hover:ring-opacity-50 transition-all duration-300 overflow-hidden">
+              اقرأ المزيد
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!--footer-->
+  <footer class="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 py-12 mt-10 
+  shadow-md dark:shadow-[0_0_15px_0_rgba(200,160,255,0.2)]">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+      <!-- القسم الأول -->
+      <div>
+        <h3 class="text-2xl font-bold text-purple-800 dark:text-purple-300 mb-4">بكالوريا بلس</h3>
+        <p class="text-sm leading-relaxed">
+          منصّة تعليمية متخصصة لمساعدة طلاب البكالوريا على التفوق والنجاح.
+          نقدم محتوى مبسّط، خطط مدروسة، ودعم مستمر يلائم احتياجات كل طالب للوصول لأفضل نتيجة.
+        </p>
+      </div>
+
+      <!-- القسم الثاني -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 text-purple-800 dark:text-purple-300">أهم الروابط</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">الرئيسية</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">الكورسات</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">اتصل بنا</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">المدونة</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">حول الشركة</a></li>
+        </ul>
+      </div>
+
+      <!-- القسم الثالث -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 text-purple-800 dark:text-purple-300">أهم الكورسات</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">رياضيات</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">فيزياء</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">كيمياء</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">علوم</a></li>
+          <li><a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition">عربي</a></li>
+        </ul>
+      </div>
+
+      <!-- القسم الرابع -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 text-purple-800 dark:text-purple-300">النشرة البريدية</h3>
+        <p class="text-sm mb-4">اشترك ليصلك أحدث الكورسات والعروض مباشرة إلى بريدك الإلكتروني.</p>
+        <form class="flex flex-col sm:flex-row gap-3">
+          <input type="email" placeholder="أدخل بريدك الإلكتروني"
+            class="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:border-purple-500 dark:bg-gray-800">
+          <button
+            class="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg font-semibold transition">اشترك
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- خط الحقوق -->
+    <div class="text-center mt-10 border-t border-gray-300 dark:border-gray-700 pt-6 text-sm">
+      كافة الحقوق محفوظة © 2025 لمنصة <span class="text-purple-700 dark:text-purple-400">بكالوريا بلس</span>
+    </div>
+  </footer>
+
+
+
+  <!-- ✅ سكربت Swiper -->
+  <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+
+  <!-- ✅ تشغيل السلايدر -->
+  <script>
+    const swiper = new Swiper('.swiper', {
+      direction: 'horizontal',
+      loop: true,
+      slidesPerView: 1,
+      spaceBetween: 20,
+
+      // ✅ نقاط التحكم
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+
+      // ✅ أزرار التالي والسابق
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+
+      // ✅ شريط التمرير
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+
+      // ✅ تجاوبية
+      breakpoints: {
+        640: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+        1280: { slidesPerView: 4 },
+      },
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {},
+      }
+    }
+  </script>
+
+
+
+  <script src="./dist/js/script.js"></script>
+
+
+
+</body>
+
+</html>
